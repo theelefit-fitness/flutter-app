@@ -539,9 +539,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 onPressed: () {
                                   final variants = product['variants']['edges'];
                                   if (variants != null && variants.isNotEmpty) {
-                                    // Extract just the numeric ID from the variant ID
+                                    // Use the full Shopify variant ID
                                     final variantId = variants[0]['node']['id'].toString();
-                                    final numericId = variantId.split('/').last;
                                     context.read<CartModel>().addToCart(
                                       {
                                         'id': product['id'],
@@ -552,7 +551,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             : AppConstants.productPlaceholder,
                                         'description': product['description'],
                                       },
-                                      numericId,
+                                      variantId,
                                       1,
                                     );
                                     ScaffoldMessenger.of(context).showSnackBar(
